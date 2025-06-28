@@ -12,6 +12,7 @@ const BLIP_DEFAULT_COLOR = 2;
 const BLIP_DEFAULT_SCALE = 0.7;
 const BLIP_DEFAULT_DISPLAY = 4;
 const BLIP_DEFAULT_SHORT_RANGE = true;
+const DEFAULT_HOTSPOT_RADIUS_MULTIPLIER = 2.0;
 
 const NUMBER_OF_SPLAHES = 4;
 const NUMBER_OF_FISHES = 15;
@@ -43,11 +44,14 @@ const createFishingHotspotZone = (
   hotspot: FishingHotspot
 ): void => {
   const shouldNotify = SETTINGS?.HOTSPOT_NOTIFICATIONS ?? true;
+  const hotspotZoneRadiusMultiplier =
+    SETTINGS?.HOTSPOT_ZONE_RADIUS_MULTIPLIER ??
+    DEFAULT_HOTSPOT_RADIUS_MULTIPLIER;
 
   createCircleZone({
     coords: hotspot.coords,
     id,
-    radius: hotspot.radius,
+    radius: hotspot.radius * hotspotZoneRadiusMultiplier,
     minZ: hotspot.coords.z - 3,
     maxZ: hotspot.coords.z + 2,
     onPlayerInOut: (inside: boolean) => {
@@ -56,8 +60,6 @@ const createFishingHotspotZone = (
       }
       if (inside) {
         notify(t("enter_hotspot_area"), "success");
-      } else {
-        notify(t("exit_hotspot_area"), "success");
       }
     },
   });
@@ -186,13 +188,15 @@ const validateSettings = (settings?: FishingHotspots | undefined): boolean => {
   return true;
 };
 
-if (validateSettings(SETTINGS.hotspots)) {
-  for (const [id, hotspot] of Object.entries(
-    SETTINGS.hotspots as FishingHotspots
-  )) {
-    createBlipsFromSettings(id, hotspot, SETTINGS.blipSettings);
-    createFishingHotspotZone(id, hotspot);
-    cycleWaterSplashEffects(hotspot);
-    cycleActiveHotspotAnimation(hotspot);
+(async () => {
+  if (validateSettings(SETTINGS.hotspots)) {
+    for (const [id, hotspot] of Object.entries(
+      SETTINGS.hotspots as FishingHotspots
+    )) {
+      createBlipsFromSettings(id, hotspot, SETTINGS.blipSettings);
+      createFishingHotspotZone(id, hotspot);
+      cycleWaterSplashEffects(hotspot);
+      cycleActiveHotspotAnimation(hotspot);
+    }
   }
-}
+})();
