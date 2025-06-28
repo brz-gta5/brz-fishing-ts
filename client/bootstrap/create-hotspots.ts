@@ -106,19 +106,32 @@ const isPlayerNearHotspot = (
   return distance <= hotspot.radius + playerFieldOfView * 2;
 };
 
-const cycleActiveHotspotAnimation = (hotspot: FishingHotspot) => {
+const cycleActiveHotspotAnimation = async (hotspot: FishingHotspot) => {
+  const peds: number[] = [];
+
   if (isPlayerNearHotspot(GetEntityCoords(PlayerPedId(), true), hotspot)) {
     for (let i = 0; i < NUMBER_OF_FISHES; i++) {
-      spawnFishPed([hotspot.coords.x, hotspot.coords.y, hotspot.coords.z]);
+      peds.push(
+        await spawnFishPed([
+          hotspot.coords.x,
+          hotspot.coords.y,
+          hotspot.coords.z,
+        ])
+      );
     }
   }
 
   setTimeout(() => {
+    for (const ped of peds) {
+      if (DoesEntityExist(ped)) {
+        DeletePed(ped);
+      }
+    }
     cycleActiveHotspotAnimation(hotspot);
   }, FISH_SPAWN_REFRESH_TIME_IN_SECONDS * 1000);
 };
 
-const spawnFishPed = async (coords: number[]) => {
+const spawnFishPed = async (coords: number[]): Promise<number> => {
   const randomSpot = randomSpotInsideCircleFromCoord(50, coords);
 
   const peds = [802685111, -1950698411, 1015224100, 113504370, "a_c_stingray"];
@@ -141,9 +154,7 @@ const spawnFishPed = async (coords: number[]) => {
   SetEntityVisible(ped, false, false);
   SetEntityCollision(ped, false, false);
 
-  setTimeout(() => {
-    DeletePed(ped);
-  }, FISH_SPAWN_REFRESH_TIME_IN_SECONDS * 1000);
+  return ped;
 };
 
 const randomSpotInsideCircleFromCoord = (
