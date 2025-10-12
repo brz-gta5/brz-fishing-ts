@@ -121,6 +121,8 @@ const cycleActiveHotspotAnimation = async (hotspot: FishingHotspot) => {
         ])
       );
     }
+
+    ModifyWater(hotspot.coords.x, hotspot.coords.y, 5.0, 5.0);
   }
 
   setTimeout(() => {
