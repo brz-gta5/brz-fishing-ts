@@ -1,6 +1,6 @@
 const SETTINGS = {
-  INVENTORY_SYSTEM: "qbCore", // ox_inventory or qbCore
-  NOTIFICATION_SYSTEM: "qbCore", // oxLib or qbCore
+  INVENTORY_SYSTEM: "esx_inventory", // OPTIONS: esx_inventory, ox_inventory or qbCore
+  NOTIFICATION_SYSTEM: "esx", // oxLib or qbCore or esx
   DEFAULT_LANG: "en-us",
   MAXIMUM_LINE_TENSION: 100,
   LINE_TENSION_INCREASE_RATE: 5,

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.3] - 2025-10-12
+
+### 🚀 Features
+
+- Add support for esx framework
+
 ## [1.1.2] - 2025-02-26
 
 ### 🚀 Features
