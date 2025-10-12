@@ -2,12 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.1.2] - 2025-02-25
+## [1.1.3] - 2025-10-12
 
 ### 🚀 Features
-- Add DYNAMIC_MINIGAME_POSITION setting (Default: true). When setting to false, will force the minigame UI to stay at the center of the screen.
 
+- Add support for esx framework
+
+## [1.1.2] - 2025-02-26
+
+### 🚀 Features
+
+- Add DYNAMIC_MINIGAME_POSITION setting
 - Ignore .vscode folder
+- Update changelog
+
+### ⚙️ Miscellaneous Tasks
+
+- Add lua54 entry
 
 ## [1.1.1] - 2024-11-09
 
