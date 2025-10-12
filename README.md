@@ -19,11 +19,13 @@ This script is 100% free, you can support my work by giving a star to this repos
 - qb-inventory
 - qs-inventory
 - ox_inventory.
+- esx_inventory
 
 ## Supported notification scripts
 
 - ox_lib
 - qb-core
+- esx
 
 Note: Want to support other scripts? consider leaving the repository a star and open a feature request.
 
