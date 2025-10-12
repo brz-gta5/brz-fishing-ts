@@ -1,13 +1,14 @@
 import {
   oxLibAdapter as oxLibAServerdapter,
   qbCoreAdapter as qbCoreServerAdapter,
+  esxAdapter as esxServerAdapter,
 } from "../server/adapters/notification.adapter";
 import { NotificationServerAdapter } from "../shared/notification";
 import { getAdapter } from "../shared/thirdparties";
 
 declare const SETTINGS: any;
 
-type AdapterName = "qbCore" | "oxLib";
+type AdapterName = "qbCore" | "oxLib" | "esx";
 
 const enabledAdapter: AdapterName = SETTINGS.NOTIFICATION_SYSTEM || "oxLib";
 
@@ -20,6 +21,7 @@ const getServerAdapter = () =>
     {
       qbCore: qbCoreServerAdapter,
       oxLib: oxLibAServerdapter,
+      esx: esxServerAdapter,
     },
     enabledAdapter
   );

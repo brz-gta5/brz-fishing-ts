@@ -95,3 +95,69 @@ export const qbCoreAdapter = {
     return true;
   },
 };
+
+const esxGetPlayer = (source: number) => {
+  const ESX = exports["es_extended"]?.getSharedObject?.();
+  const player = ESX?.GetPlayerFromId?.(source);
+
+  if (!player) {
+    console.error("ESX Player not found ", source);
+    return false;
+  }
+
+  return player;
+};
+
+export const esxAdapter = {
+  removeItem: (source: number, itemName: string) => {
+    const player = esxGetPlayer(source);
+
+    if (!player) {
+      return false;
+    }
+
+    player.removeInventoryItem(itemName, 1);
+    return true;
+  },
+  addItem: (source: number, itemName: string) => {
+    const player = esxGetPlayer(source);
+
+    if (!player) {
+      return false;
+    }
+
+    player.addInventoryItem(itemName, 1);
+    return true;
+  },
+  getItem: (itemName: string) => {
+    const ESX = exports["es_extended"]?.getSharedObject?.();
+    const item = ESX?.Items?.[itemName];
+
+    if (!item) return null;
+
+    return {
+      name: item.name,
+      label: item.label,
+      weight: item.weight,
+      type: "item",
+      description: item.name,
+      unique: false,
+      useable: item.usable || false,
+      rare: item.rare || false,
+      canRemove: item.canRemove !== false,
+      shouldClose: false,
+      combinable: false,
+      image: "",
+    };
+  },
+  notify: (source: number, message: string, type: "success" | "error") => {
+    const player = esxGetPlayer(source);
+
+    if (!player) {
+      return false;
+    }
+
+    player.showNotification(message, type, 5000);
+    return true;
+  },
+};

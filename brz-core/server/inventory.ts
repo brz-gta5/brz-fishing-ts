@@ -1,13 +1,14 @@
 import {
   oxInventoryAdapter as oxInventoryServerAdapter,
   qbCoreAdapter as qbCoreServerAdapter,
+  esxAdapter as esxServerAdapter,
 } from "../server/adapters/inventory.adapter";
 import { InventoryServerAdapter } from "../shared/inventory";
 import { getAdapter } from "../shared/thirdparties";
 
 declare const SETTINGS: any;
 
-type AdapterName = "qbCore" | "ox_inventory";
+type AdapterName = "qbCore" | "ox_inventory" | "esx_inventory";
 
 const enabledAdapter: AdapterName = SETTINGS.INVENTORY_SYSTEM || "ox_inventory";
 
@@ -20,6 +21,7 @@ const getServerAdapter = () =>
     {
       qbCore: qbCoreServerAdapter,
       ox_inventory: oxInventoryServerAdapter,
+      esx_inventory: esxServerAdapter,
     },
     enabledAdapter
   );

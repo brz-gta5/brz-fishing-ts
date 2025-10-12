@@ -12,3 +12,10 @@ export const qbCoreAdapter = {
     exports["qb-core"].GetCoreObject?.().Functions.Notify(message, type);
   },
 };
+
+export const esxAdapter = {
+  notify: (message: string, type: "success" | "error") => {
+    const ESX = exports["es_extended"]?.getSharedObject?.();
+    ESX?.ShowNotification?.(message, type, 5000);
+  },
+};

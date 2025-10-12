@@ -30,3 +30,26 @@ export const qbCoreAdapter = {
     };
   },
 };
+
+export const esxInventoryAdapter = {
+  hasItem: (itemName: string) => {
+    const ESX = exports["es_extended"]?.getSharedObject?.();
+    if (!ESX?.PlayerData?.inventory) return false;
+
+    for (const item of ESX.PlayerData.inventory) {
+      if (item.name === itemName && item.count > 0) {
+        return true;
+      }
+    }
+    return false;
+  },
+  notify: (message: string, type: "success" | "error") => {
+    const ESX = exports["es_extended"]?.getSharedObject?.();
+    ESX?.ShowNotification?.(message, type, 5000);
+  },
+  useItemHookName: "esx:useItem",
+  useItemHookHandler: (itemName: string) => ({
+    itemName,
+    itemType: "use",
+  }),
+};

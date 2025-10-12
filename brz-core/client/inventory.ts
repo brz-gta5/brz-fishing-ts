@@ -1,6 +1,7 @@
 import {
   qbCoreAdapter as qbCoreClientAdapter,
   oxInventoryAdapter as oxInventoryClientAdapter,
+  esxInventoryAdapter as esxInventoryClientAdapter,
 } from "../client/adapters/inventory.adapter";
 import { getAdapter } from "../shared/thirdparties";
 import { InventoryClientAdapter } from "../shared/inventory";
@@ -20,6 +21,7 @@ const getClientAdapter = () =>
     {
       qbCore: qbCoreClientAdapter,
       ox_inventory: oxInventoryClientAdapter,
+      esx_inventory: esxInventoryClientAdapter,
     },
     enabledAdapter
   );

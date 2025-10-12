@@ -2,6 +2,7 @@ import { getAdapter } from "../shared/thirdparties";
 import {
   qbCoreAdapter as qbCoreClientAdapter,
   oxLibAdapter as oxLibAClientdapter,
+  esxAdapter as esxClientAdapter,
 } from "../client/adapters/notification.adapter";
 import { NotificationClientAdapter } from "../shared/notification";
 
@@ -20,6 +21,7 @@ const getClientAdapter = () =>
     {
       qbCore: qbCoreClientAdapter,
       oxLib: oxLibAClientdapter,
+      esx: esxClientAdapter,
     },
     enabledAdapter
   );
